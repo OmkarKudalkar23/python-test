@@ -2,24 +2,20 @@ name: LeakGuard Security Audit
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, ci-cd ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, master, ci-cd ]
 
 jobs:
   leakguard-scan:
     name: CodeGate Resource Leak Check
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
 
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: LeakGuard CodeGate Analyzer
-        uses: vanshpatil16/VH26-DOMINATORS-5.0@v1.0.1
+      - name: Run LeakGuard Analysis
+        uses: vanshpatil16/VH26-DOMINATORS-5.0@v1.0.2
         with:
-          targets: .
           ensemble: 'true'
-          changed-only: 'false'
